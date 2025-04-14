@@ -18,9 +18,7 @@ export default function QuestionScreen({
 }: Props) {
   return (
     <div className="flex flex-col items-center w-full max-w-2xl">
-      <p className="mb-4 text-gray-700">
-        Question {questionNumber} of {totalQuestions}
-      </p>
+
       <QuestionCard
   question={question}
   answers={answers}

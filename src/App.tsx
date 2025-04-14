@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuizQuestions } from "./hooks/useQuizQuestions";
 import ResultScreen from "./components/ResultScreen";
 import QuestionScreen from "./components/QuestionScreen";
+import BannerImage from './assets/did-you-know-transparent.png';
 
 type AnswerRecord = {
   question: string;
@@ -49,10 +50,17 @@ function App() {
     setUserAnswers([]);
     setShowResult(false);
   };
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#fcefe7] p-4">
-      <h1 className="text-3xl font-bold text-[#f49c7f] mb-6">React Quiz App</h1>
+<div className="flex flex-col items-center bg-[#fcefe7] pt-4 px-4 min-h-screen">
+{/* Banner */}
+<img
+  src={BannerImage}
+  alt="Quiz Banner"
+  className="w-full max-w-4xl h-40 object-contain"
+/>
+
+
+      
       {loading || questions.length === 0 ? (
         <div className="text-center mt-10">Loading...</div>
       ) : showResult ? (
@@ -73,6 +81,7 @@ function App() {
       )}
     </div>
   );
+  
 }
 
 export default App;
