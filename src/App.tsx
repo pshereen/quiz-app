@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuizQuestions } from "./hooks/useQuizQuestions";
 import ResultScreen from "./components/ResultScreen";
 import QuestionScreen from "./components/QuestionScreen";
@@ -20,12 +20,6 @@ function App() {
   const [category, setCategory] = useState("9"); 
   const [difficulty, setDifficulty] = useState("easy");
   const [quizStarted, setQuizStarted] = useState(false);
-
-  useEffect(() => {
-    if (quizStarted) {
-      fetchQuestions(parseInt(category), difficulty);
-    }
-  }, [quizStarted]);
 
   const handleAnswer = (answer: string) => {
     const current = questions[currentQn];
@@ -51,7 +45,6 @@ function App() {
 
   const handlePlayAgain = () => {
     setQuizStarted(false);
-    fetchQuestions(parseInt(category), difficulty);
     setCurrentQn(0);
     setScore(0);
     setUserAnswers([]);
@@ -93,7 +86,11 @@ function App() {
             </select>
 
             <button
-              onClick={() => setQuizStarted(true)}
+              onClick={async () => {
+                await fetchQuestions(parseInt(category), difficulty);
+                setQuizStarted(true);
+              }}
+              
               className="bg-orange-400 text-white px-6 py-2 rounded hover:bg-orange-500"
             >
               Start Quiz
