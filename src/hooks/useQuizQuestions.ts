@@ -1,5 +1,4 @@
-// src/hooks/useQuizQuestions.ts
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { Question, QuizQuestion } from "../types";
 
 export function useQuizQuestions() {
@@ -10,19 +9,30 @@ export function useQuizQuestions() {
     return [...array].sort(() => Math.random() - 0.5);
   };
 
-  const fetchQuestions = useCallback(async () => {
+  const fetchQuestions = async (
+    category: number = 9, 
+    difficulty: string = "easy"
+  ) => {
     setLoading(true);
-    const res = await fetch("https://opentdb.com/api.php?amount=5&category=22&difficulty=easy&type=multiple");
-    const data = await res.json();
+    try {
+      const res = await fetch(
+        `https://opentdb.com/api.php?amount=5&category=${category}&difficulty=${difficulty}&type=multiple`
+      );
+      const data = await res.json();
 
-    const formatted: QuizQuestion[] = data.results.map((q: Question) => ({
-      ...q,
-      answers: shuffleArray([q.correct_answer, ...q.incorrect_answers]),
-    }));
+      const formatted: QuizQuestion[] = data.results.map((q: Question) => ({
+        ...q,
+        answers: shuffleArray([q.correct_answer, ...q.incorrect_answers]),
+      }));
 
-    setQuestions(formatted);
-    setLoading(false);
-  }, []);
+      setQuestions(formatted);
+    } catch (error) {
+      console.error("Failed to fetch questions:", error);
+      setQuestions([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return {
     questions,
@@ -31,3 +41,4 @@ export function useQuizQuestions() {
     setQuestions,
   };
 }
+
