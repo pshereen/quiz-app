@@ -2,7 +2,7 @@
 
 A fun and interactive quiz application that fetches live trivia questions from the [Open Trivia Database (OpenTDB)](https://opentdb.com/). This app features dynamic question rendering, score tracking, and a responsive, modern UI — all built with a powerful frontend stack.
 
-![Quiz App Demo]![image](https://github.com/user-attachments/assets/e8825842-ef7d-4813-89d3-d4c2d3243dc9)
+![image](https://github.com/user-attachments/assets/e8825842-ef7d-4813-89d3-d4c2d3243dc9)
 
 
 ## 🎯 Features
